@@ -1,78 +1,62 @@
 @import 'tailwindcss';
 
 @theme {
-    --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    --color-primary: #f67280;
-    --color-primary-content: #101828;
-    --color-complementary: #355c7d;
-    --background-image-noise: linear-gradient(
-            to bottom,
-            color-mix(in oklab, var(--color-gray-950) 0%, transparent),
-            color-mix(in oklab, var(--color-gray-950) 100%, transparent)
-        ),
-        url('/images/noise.png');
+    --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji';
+    --font-display: 'Bungee', 'Outfit', ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
-    h1 {
-        @apply text-4xl font-bold tracking-tight sm:text-5xl;
+    body {
+        background-image:
+            radial-gradient(1200px 600px at 10% -10%, rgb(168 85 247 / 0.18), transparent 60%),
+            radial-gradient(900px 500px at 100% 0%, rgb(34 211 238 / 0.12), transparent 60%);
+        background-attachment: fixed;
     }
-
-    h2 {
-        @apply text-2xl font-bold sm:text-3xl;
+    button:not(:disabled) {
+        cursor: pointer;
     }
-
-    a:not(.btn) {
-        @apply underline transition hover:opacity-80;
-    }
-
-    pre {
-        @apply p-6 overflow-x-auto rounded-lg;
-    }
-
-    :not(pre) > code {
-        @apply px-1 py-0.5 font-mono rounded bg-gray-900 text-primary;
-        font-size: 0.9em;
+    a {
+        text-decoration: none;
     }
 }
 
 @layer components {
-    .markdown {
-        > * {
-            @apply my-6;
-        }
-
-        :where(h1, h2) {
-            @apply mt-12 mb-6;
-        }
-
-        > :first-child {
-            @apply mt-0;
-        }
-
-        > :last-child {
-            @apply mb-0;
-        }
+    .panel {
+        @apply bg-white/[0.035] border border-white/10;
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05);
     }
-
-    .btn {
-        @apply inline-flex items-center justify-center gap-2 bg-primary text-primary-content cursor-pointer text-center font-semibold no-underline transition-colors;
-        padding: var(--btn-py, 0.875rem) var(--btn-px, 1.25rem);
-        font-size: var(--btn-font-size, 0.875rem);
-        border-radius: var(--btn-border-radius, 0.25rem);
-
-        &:hover {
-            @apply bg-primary/85;
-        }
-
-        &:disabled {
-            @apply text-gray-400 bg-gray-700;
-        }
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-semibold text-black transition;
+        background: linear-gradient(135deg, #67e8f9, #c084fc);
+        box-shadow: 0 6px 24px -6px rgb(103 232 249 / 0.5);
     }
-
-    .btn-lg {
-        --btn-font-size: 1.125rem;
-        --btn-px: 1.5rem;
-        --btn-py: 1.125rem;
+    .btn-primary:not(:disabled):hover {
+        filter: brightness(1.1);
+        transform: translateY(-1px);
+    }
+    .input {
+        @apply w-full px-3 py-2 rounded-lg bg-black/40 border border-white/10 outline-none focus:border-cyan-300/60;
+    }
+    .hero {
+        background:
+            linear-gradient(120deg, rgb(34 211 238 / 0.18), rgb(168 85 247 / 0.22) 50%, rgb(244 63 94 / 0.18)),
+            repeating-linear-gradient(0deg, rgb(255 255 255 / 0.03) 0 1px, transparent 1px 4px),
+            #120f26;
+        border: 1px solid rgb(255 255 255 / 0.1);
+    }
+    .logo-glow {
+        text-shadow: 0 0 18px rgb(192 132 252 / 0.6);
     }
 }
+
+@keyframes pop-up {
+    from { opacity: 1; transform: translate(-50%, -50%); }
+    to { opacity: 0; transform: translate(-50%, -180%); }
+}
+.pop-up { animation: pop-up 0.4s ease-out forwards; }
+
+@keyframes toast-in {
+    from { opacity: 0; transform: translate(-50%, 12px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}
+.toast-in { animation: toast-in 0.2s ease-out; }
